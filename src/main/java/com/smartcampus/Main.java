@@ -9,7 +9,7 @@ import java.net.URI;
 
 public class Main {
 
-    public static final String BASE_URI = "http://localhost:8080/";
+    public static final String BASE_URI = "http://localhost:8080/api/v1/";
 
     public static HttpServer startServer() {
         return GrizzlyHttpServerFactory.createHttpServer(
@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         HttpServer server = startServer();
-        System.out.println("Smart Campus API running at: " + BASE_URI + "api/v1");
+        System.out.println("Smart Campus API running at: " + BASE_URI);
         System.out.println("Press Enter to stop the server...");
         System.in.read();
         server.shutdownNow();
