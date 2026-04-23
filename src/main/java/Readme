@@ -1,0 +1,171 @@
+# Smart Campus REST API
+
+## Overview
+
+This project is a RESTful API developed using Java and JAX-RS (Jersey). It simulates a Smart Campus system that manages:
+
+* Rooms
+* Sensors
+* Sensor Readings
+
+The API allows clients to create, retrieve, and manage these resources while enforcing proper business rules and error handling.
+
+---
+
+## Technologies Used
+
+* Java 17
+* JAX-RS (Jersey)
+* Maven
+* Grizzly HTTP Server
+* JSON (Jackson)
+* Postman (for testing)
+* GitHub (for version control)
+
+---
+
+## How to Run the Project
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/wenuja-ch/smart-campus-api.git
+cd smart-campus-api
+```
+
+### 2. Compile the project
+
+```bash
+mvn clean compile
+```
+
+### 3. Run the server
+
+```bash
+mvn exec:java
+```
+
+### 4. Access the API
+
+Open in browser:
+
+[http://localhost:8080/api/v1](http://localhost:8080/api/v1)
+
+---
+
+## API Endpoints
+
+### Root Endpoint
+
+GET /api/v1
+
+Returns API information and available resources.
+
+---
+
+### Room Endpoints
+
+* GET /rooms → Get all rooms
+* POST /rooms → Create a new room
+* GET /rooms/{id} → Get room by ID
+* DELETE /rooms/{id} → Delete room
+
+---
+
+### Sensor Endpoints
+
+* GET /sensors → Get all sensors
+* GET /sensors?type=Temperature → Filter sensors
+* POST /sensors → Create sensor
+
+---
+
+### Sensor Reading Endpoints
+
+* GET /sensors/{id}/readings → Get readings
+* POST /sensors/{id}/readings → Add reading
+
+---
+
+## Sample CURL Commands
+
+### Get all rooms
+
+```bash
+curl -X GET http://localhost:8080/api/v1/rooms
+```
+
+### Create a room
+
+```bash
+curl -X POST http://localhost:8080/api/v1/rooms \
+-H "Content-Type: application/json" \
+-d '{"id":"SCI-201","name":"Science Lab","capacity":40}'
+```
+
+### Create a sensor
+
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors \
+-H "Content-Type: application/json" \
+-d '{"id":"TEMP-100","type":"Temperature","status":"ACTIVE","currentValue":23.5,"roomId":"SCI-201"}'
+```
+
+### Add a sensor reading
+
+```bash
+curl -X POST http://localhost:8080/api/v1/sensors/TEMP-100/readings \
+-H "Content-Type: application/json" \
+-d '{"value":26.5}'
+```
+
+---
+
+## Error Handling
+
+The API includes proper error handling with JSON responses:
+
+* 400 → Bad Request
+* 403 → Forbidden (sensor in maintenance)
+* 404 → Resource not found
+* 409 → Conflict (room not empty)
+* 422 → Invalid linked resource
+* 500 → Internal server error
+
+---
+
+## Business Rules
+
+* A room cannot be deleted if it contains sensors
+* A sensor must belong to an existing room
+* Sensors in MAINTENANCE mode cannot accept readings
+* Adding a reading updates the sensor’s current value
+
+---
+
+## Logging
+
+All API requests and responses are logged using JAX-RS filters:
+
+* Incoming request → method + URL
+* Outgoing response → status code
+
+---
+
+## Video Demonstration
+
+A video demonstration of the API shows:
+
+* API endpoints working
+* Postman testing
+* Error handling cases
+
+(Video link will be provided in Blackboard submission)
+
+---
+
+## Author
+
+* Name:
+* Module: Client-Server Architectures (5COSC022W)
+* Coursework: Smart Campus API
