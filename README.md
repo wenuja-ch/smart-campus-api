@@ -66,7 +66,7 @@ curl -X POST http://localhost:8080/api/v1/rooms \
 
 ---
 
-# 📘 REPORT ANSWERS
+# REPORT ANSWERS
 
 ## Part 1
 
